@@ -56,7 +56,7 @@ $$ S(n, k) = k \times S(n-1, k) + S(n-1, k-1) $$
 
 with the base cases:
 
-- $ S(0, 0) = 1 $
-- $ S(n, 0) = 0 $ for $ n > 0 $
-- $ S(0, k) = 0 $ for $ k > 0 $
-- $ S(n, k) = 0 $ if $ k > n $
+- $S(0, 0) = 1$
+- $S(n, 0) = 0$ for $n > 0$
+- $S(0, k) = 0$ for $k > 0$
+- $S(n, k) = 0$ if $k > n$
