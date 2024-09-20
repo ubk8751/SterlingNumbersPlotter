@@ -16,9 +16,9 @@ The **Stirling Numbers Plotter** calculates the Stirling numbers of the second k
 
 1. **Clone the repository**:
 
-    `git clone git@github.com:ubk8751/SterlingNumbersPlotter.git` (SSH)
-    `git clone https://github.com/ubk8751/SterlingNumbersPlotter.git` (HTTPS)
-    `cd stirling-numbers-plotter`
+    1. `git clone git@github.com:ubk8751/SterlingNumbersPlotter.git` (SSH)
+    2. `git clone https://github.com/ubk8751/ SterlingNumbersPlotter.git` (HTTPS)
+    3. `cd stirling-numbers-plotter`
 
 2. **Install the required libraries:**
    
