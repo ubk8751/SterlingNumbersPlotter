@@ -10,7 +10,14 @@ def c_args():
                         default=1,
                         dest='n',
                         help='''The size of the largest set to calculate the sterling
-                                count for.''')
+                                number for.''')
+    parser.add_argument('--image-folder',
+                        type=str,
+                        default='img',
+                        dest='img_save_path',
+                        help='''The folder the image will be saved to. Defaults to
+                                "img".''')
+    
     a = parser.parse_args()
     if a.n < 1:
         print(f'Set size cannot be less than 1!')

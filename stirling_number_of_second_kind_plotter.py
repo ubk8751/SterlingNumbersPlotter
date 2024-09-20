@@ -19,30 +19,64 @@ def gen_graph(data:list[float],
             data,
             edgecolor='black')
     midpoint = n//2
-    custom_ticks = [0, midpoint, n - 1]
-    custom_labels = [f'S({n},1)', f'S({n},{midpoint+1})', f'S({n},{n})']
+    highest_value_index = data.index(max(data))
+
+    if (midpoint != highest_value_index + 2 or
+        midpoint != highest_value_index + - 1):
+        if midpoint < highest_value_index:
+            custom_ticks = [0, midpoint, highest_value_index, n - 1]
+            custom_labels = [f'S({n},1)',
+                             f'S({n},{highest_value_index})',
+                             f'S({n},{midpoint})',
+                             f'S({n},{n})']
+        else:
+            custom_ticks = [0, midpoint, highest_value_index, n - 1]
+            custom_labels = [f'S({n},1)',
+                             f'S({n},{midpoint})',
+                             f'S({n},{highest_value_index})',
+                             f'S({n},{n})']
+        plt.axvline(highest_value_index,
+                    color='orange',
+                    ymax=max(data),
+                    ymin=0,
+                    linestyle='--',
+                    linewidth=2,
+                    label=f'Highest value (Index {highest_value_index})')
+    else:
+        custom_ticks = [0, midpoint, n - 1]
+        custom_labels = [f'S({n},1)', f'S({n},{midpoint})', f'S({n},{n})']
     plt.axvline(midpoint,
                 color='red',
                 ymax=max(data),
                 ymin=0,
                 linestyle='--',
-                linewidth=2)
+                linewidth=2,
+                label=f'Midpoint (Index {midpoint})')
     plt.xlabel('k')
-    plt.xticks(ticks=custom_ticks, labels=custom_labels)
+    plt.xticks(ticks=custom_ticks,
+               labels=custom_labels)
     plt.ylabel('Number of subsets')
-    plt.title(f'Histogram over the distribution of number of k subsets for a set of size {n}')
+    plt.title(f'Plot over the distribution of number of k subsets for a set of size {n}')
+    plt.legend()
     plt.savefig(img_save_path)
     plt.close()
 
-def S(n:int=1, k:int=1, **kwargs) -> int:
+def S(n: int = 1,
+      k: int = 1,
+      memo=None,
+      **kwargs) -> int:
     """
-    Calculate the Stirling number of the second kind S(n, k).
+    Calculate the Stirling number of the second kind S(n, k) using memoization.
     This function returns the number of ways to partition a set of `n` elements into `k` non-empty subsets.
 
     :param n: The number of elements in the set.
     :param k: The number of non-empty subsets.
-    :return:  S(n, k).
+    :param memo: Dictionary to store previously computed values of S(n, k).
+    :return: The Stirling number of the second kind S(n, k).
     """
+    if memo is None:
+        memo = {}
+    
     # Base cases
     if n == 0 and k == 0:
         return 1
@@ -51,7 +85,16 @@ def S(n:int=1, k:int=1, **kwargs) -> int:
     elif k > n:
         return 0
     
-    return k * S(n - 1, k) + S(n - 1, k - 1)
+    # Check if the value is already computed
+    if (n, k) in memo:
+        return memo[(n, k)]
+    
+    # Recursive calculation with memoization
+    result = k * S(n - 1, k, memo) + S(n - 1, k - 1, memo)
+    memo[(n, k)] = result  # Store the computed result
+    
+    return result
+
 
 def calc_bar_plot(n:int=1,
                   img_save_path:str='./img/result.png',
@@ -87,9 +130,9 @@ def main(n:int=1,
     print(f'Done!')
 
 if __name__ == "__main__":
+    args = c_args()
     cwd = os.getcwd()
     if not os.path.exists(f'{cwd}/img'):
         os.mkdir(f'{cwd}/img')
-    args = c_args()
     main(n=args.n,
          img_save_path=f'{cwd}/img/result.png')
