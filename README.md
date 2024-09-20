@@ -26,13 +26,14 @@ The **Stirling Numbers Plotter** calculates the Stirling numbers of the second k
 
 ## Usage
 
-`python stirling_number_of_second_kind_plotter.py -n [int] [--image-folder [str]]`
+`python stirling_number_of_second_kind_plotter.py -n [int] [--image-folder [str]] [--only-final]`
 
 ### Command-Line Flags
 
 - `-n [int]`: (Required) Specifies the size of the largest set to calculate the Stirling number for. Default value is 1.
 - `--image-folder [str]`: (Optional) The folder to save the generated plots. If not specified, the default folder `./img/` will be used.
-
+- `--only-final`: Toggle that, if activated, only S(n,k) will be calculated, not the entire series of 1 to n.
+  
 ### Examples
 
 1. **Calculate and plot Stirling numbers for sets up to size 5:**

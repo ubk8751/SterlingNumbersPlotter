@@ -115,6 +115,7 @@ def calc_bar_plot(n:int=1,
 
 def main(n:int=1,
          img_save_path:str='./img/result.png',
+         only_final:bool=False,
          **kwargs):
     """
     Generate and save a series of bar plots for Stirling numbers from 1 to `n`.
@@ -123,6 +124,11 @@ def main(n:int=1,
     :param img_save_path: The base file path to save the generated images. Defaults to './img/result.png'.
     :return None
     """
+    if only_final:
+        calc_bar_plot(n=n,
+                      img_save_path=img_save_path)
+        print('Done!')
+        exit(1)
     for i in range(1,n+1):
         calc_bar_plot(n=i,
                       img_save_path=img_save_path)
@@ -135,4 +141,5 @@ if __name__ == "__main__":
     if not os.path.exists(f'{cwd}/img'):
         os.mkdir(f'{cwd}/img')
     main(n=args.n,
-         img_save_path=f'{cwd}/img/result.png')
+         img_save_path=f'{cwd}/{args.img_save_path}/result.png',
+         only_final=args.only_final)

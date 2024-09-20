@@ -17,6 +17,11 @@ def c_args():
                         dest='img_save_path',
                         help='''The folder the image will be saved to. Defaults to
                                 "img".''')
+    parser.add_argument('--only-final',
+                        dest='only_final',
+                        action='store_true',
+                        help='''If activated, only S(n,k) will be calculated, not
+                                the entire series of 1 to n.''')
     
     a = parser.parse_args()
     if a.n < 1:
